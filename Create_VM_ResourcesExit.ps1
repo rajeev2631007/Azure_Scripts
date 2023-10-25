@@ -6,7 +6,7 @@ $vmName = "YourVMName"
 $osImage = "YourOSImage"
 $vmSize = "YourVMSize"
 $vnetName = "YourVirtualNetworkName"
-$subnetName = "YourSubnetName"
+$subnetName = "YourSubnetName"p
 $nsgName = "YourNSGName"
 $availabilitySetName = "YourAvailabilitySetName"
 
