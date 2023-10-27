@@ -1,0 +1,6 @@
+# Define your variables
+$resourceGroupName = 'myrg'
+$vmName = 'myvm'
+
+# Stop the Azure virtual machine
+Stop-AzVM -ResourceGroupName $resourceGroupName -Name $vmName -Force
