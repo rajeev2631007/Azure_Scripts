@@ -1,0 +1,65 @@
+$targetIP = "192.168.1.254"
+$logFile = "C:\linkcheck.txt"
+$iterationCount = 0
+
+while ($iterationCount -lt 500) {
+  # Perform the ping test
+  $pingResult = Test-Connection -ComputerName $targetIP -Count 1 -Quiet
+
+  # Check if ping was successful
+  if ($pingResult) {
+    Write-Host "Ping to $targetIP successful at $(Get-Date)" >> $logFile
+  } else {
+    Write-Host "Ping to $targetIP failed at $(Get-Date)" >> $logFile
+  }
+
+  # Increase iteration count
+  $iterationCount++
+
+  # Sleep for 1 second
+  Start-Sleep -Seconds 1
+}
+
+Write-Host "Script completed after 500 iterations."
+
+
+
+
+Explanation:
+
+    Variables:
+        $targetIP: Stores the IP address to ping.
+        $logFile: Path to the file where results will be logged.
+        $iterationCount: Keeps track of the number of iterations.
+    Loop:
+        A while loop continues as long as $iterationCount is less than 500.
+    Ping Test:
+        Test-Connection cmdlet is used with -ComputerName and -Count 1 parameters to ping the target IP address once.
+        -Quiet parameter suppresses additional information, leaving only success/failure indication.
+    Logging Results:
+        The output ($pingResult) is appended to the $logFile along with a timestamp using Write-Host >> $logFile.
+    Iteration Control:
+        $iterationCount is incremented after each loop.
+    Sleep:
+        Start-Sleep pauses the script for 1 second before the next iteration.
+    Script Completion:
+        After the loop finishes, a message indicating script completion is displayed.
+
+Saving the Script:
+
+    Copy the script content.
+    Open a text editor (e.g., Notepad).
+    Paste the script content.
+    Save the file with a .ps1 extension (e.g., ping_check.ps1).
+
+Running the Script:
+
+    Open a PowerShell window (Run as administrator if needed).
+
+    Navigate to the directory where you saved the script.
+
+    Execute the script using the following command:
+
+.\ping_check.ps1
+
+This script will continuously ping the target IP, log the results to the specified file, and automatically stop after 500 iterations.
