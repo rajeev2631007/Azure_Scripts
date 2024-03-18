@@ -1,0 +1,38 @@
+Sure, I can help you with that! Here's a PowerShell script that you can use to start a virtual machine in Azure using Azure Automation and runbook.
+The script is compatible with AzureRM.Profile and AzureRM.Resources and imports them into your Automation account.
+
+# Set variables
+$resourceGroupName = "your_resource_group_name"
+$vmName = "your_vm_name"
+
+# Import required Azure modules
+$AzureRmProfileModule = Get-AzAutomationModule -Name AzureRm.Profile
+if ($AzureRmProfileModule -eq $null) {
+    Import-AzAutomationModule -Name AzureRm.Profile
+}
+
+$AzureRmResourcesModule = Get-AzAutomationModule -Name AzureRm.Resources
+if ($AzureRmResourcesModule -eq $null) {
+    Import-AzAutomationModule -Name AzureRm.Resources
+}
+
+# Connect to Azure subscription
+$Conn = Get-AutomationConnection -Name "AzureRunAsConnection"
+Connect-AzAccount -ServicePrincipal -Tenant $Conn.TenantID -ApplicationId $Conn.ApplicationID -CertificateThumbprint $Conn.CertificateThumbprint
+
+# Start the virtual machine
+$vm = Get-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
+Start-AzVM -ResourceGroupName $resourceGroupName -Name $vmName
+
+
+
+
+Replace the placeholders with your actual values. The script imports the required Azure modules, connects to the Azure subscription using the Azure Run As account, and then starts the virtual machine.
+
+To use this script in Azure Automation and runbook, follow these steps:
+
+    Create a new PowerShell runbook in your Automation account. You can do this by going to your Automation account in the Azure portal, clicking on "Runbooks" under "Process Automation", and then clicking on "Add a runbook". Give your runbook a name, select "PowerShell" as the runbook type, and then create a new runbook.
+    Copy and paste the PowerShell script into your new runbook.
+    Publish your runbook by clicking on "Publish" in the top toolbar.
+    Create a new schedule for your runbook. You can do this by going to your runbook in the
+
